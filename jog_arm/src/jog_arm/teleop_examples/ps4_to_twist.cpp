@@ -39,7 +39,10 @@ private:
   {
     // Cartesian jogging
     geometry_msgs::TwistStamped twist;
+    jog_msgs::JogJoint joint_deltas;
+
     twist.header.stamp = ros::Time::now();
+    joint_deltas.header.stamp = ros::Time::now();
 
     // check if we're in angular or linear mode
     if (msg->buttons[ENABLE_LINEAR_BUTTON]) {
@@ -69,8 +72,6 @@ private:
       twist.twist.angular.y = 0;
       twist.twist.angular.z = 0;
     }
-
-    joint_deltas.header.stamp = ros::Time::now();
 
     twist_pub_.publish(twist);
     joint_delta_pub_.publish(joint_deltas);
